@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - pr
   pull_request:
 name: CI
 jobs:
@@ -82,7 +82,7 @@ jobs:
   # We build a shared docker image called "zoekt". This is not pushed, but is
   # used for creating the indexserver and webserver images.
   docker:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/pr'
     runs-on: ubuntu-latest
     needs:
       - "test"
@@ -107,7 +107,7 @@ jobs:
       - name: build-push-webserver
         uses: docker/build-push-action@v1
         with:
-          repository: xvandish/zoekt-webserver
+          repository: dextererials/zoekt-webserver
           tags: ${{ steps.version.outputs.value }},latest
           dockerfile: Dockerfile.webserver
           add_git_labels: "true"
@@ -118,7 +118,7 @@ jobs:
       - name: build-push-indexserver
         uses: docker/build-push-action@v1
         with:
-          repository: xvandish/zoekt-indexserver
+          repository: dextererials/zoekt-indexserver
           tags: ${{ steps.version.outputs.value }},latest
           dockerfile: Dockerfile.indexserver
           add_git_labels: "true"
