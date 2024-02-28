@@ -39,6 +39,7 @@ import (
 const day = time.Hour * 24
 const iso8601Format = "2006-01-02T15:04:05Z07:00"
 
+// comment-pr
 var (
 	// we use this for 3 things:
 	// 1. prevent the same git repo from being indexed concurrently
